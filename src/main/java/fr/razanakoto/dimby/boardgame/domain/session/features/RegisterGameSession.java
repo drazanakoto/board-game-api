@@ -27,11 +27,7 @@ public class RegisterGameSession implements JoinGameSession {
 
     @Override
     public GameSession join(GameSessionId gameSessionId, Participant participant, String password) {
-        var optionalGameSession = gameSessionInventory.findById(gameSessionId);
-        if (optionalGameSession.isEmpty()) {
-            throw new UnknownGameSession("Game session not found :" + gameSessionId);
-        }
-        var foundGameSession = optionalGameSession.get();
+        var foundGameSession = findSession(gameSessionId);
 
         checkGameSessionStatus(foundGameSession);
         checkPassword(foundGameSession, password);
@@ -66,5 +62,13 @@ public class RegisterGameSession implements JoinGameSession {
         if (allowedStatus.contains(gameSession.status())) {
             throw new WrongGameSessionStatus("Game session is not in the right status");
         }
+    }
+
+    private GameSession findSession(GameSessionId gameSessionId) {
+        var optionalGameSession = gameSessionInventory.findById(gameSessionId);
+        if (optionalGameSession.isEmpty()) {
+            throw new UnknownGameSession("Game session not found :" + gameSessionId);
+        }
+        return optionalGameSession.get();
     }
 }
