@@ -99,4 +99,34 @@ class RegisterGameSessionTest {
                 .build();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void should_register_participant_when_game_session_without_password_is_ready() {
+        var UUIDProvider = new FakeUUIDProvider();
+        var gameSessionInventory = new FakeGameSessionInventory();
+        var gameSessionId = new GameSessionId(UUIDProvider.generate());
+        var participant = new Participant(new ParticipantId(UUIDProvider.generate()), "John");
+        var createdGameSession = GameSession.builder()
+                .id(gameSessionId)
+                .creator(new GameSessionCreator(participant))
+                .status(GameSessionStatus.READY)
+                .build();
+        gameSessionInventory.save(createdGameSession);
+
+        var registerGameSession = RegisterGameSession.builder()
+                .gameSessionInventory(gameSessionInventory)
+                .passwordEncoder(new FakePasswordEncoder())
+                .gameSessionEventProducer(new FakeGameSessionEventProducer())
+                .instantProvider(new FakeInstantProvider())
+                .build();
+
+        var actual = registerGameSession.join(gameSessionId, participant, null);
+        var expected = GameSession.builder()
+                .id(createdGameSession.id())
+                .creator(createdGameSession.creator())
+                .status(GameSessionStatus.READY)
+                .participants(Set.of(participant))
+                .build();
+        assertEquals(expected, actual);
+    }
 }
