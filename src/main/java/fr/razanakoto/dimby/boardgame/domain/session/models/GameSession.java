@@ -25,6 +25,7 @@ public record GameSession(GameSessionId id,
                 .id(id)
                 .creator(creator)
                 .status(status)
+                .participants(new HashSet<>(participants))
                 .build();
     }
 }
