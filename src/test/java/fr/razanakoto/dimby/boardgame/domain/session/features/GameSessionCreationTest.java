@@ -12,14 +12,14 @@ class GameSessionCreationTest {
 
     @Test
     public void should_create_a_game_session_with_password() {
-        var uuidProvider = new FakeUUIDProvider();
-        var instantProvider = new FakeInstantProvider();
+        var uuidProvider = new UUIDProviderStub();
+        var instantProvider = new InstantProviderStub();
         var gameSessionCreation = GameSessionCreation.builder()
                 .uuidProvider(uuidProvider)
                 .instantProvider(instantProvider)
-                .gameSessionInventory(new FakeGameSessionInventory())
-                .gameSessionEventProducer(new FakeGameSessionEventProducer())
-                .passwordEncoder(new FakePasswordEncoder())
+                .gameSessionInventory(new GameSessionInventoryStub())
+                .gameSessionEventProducer(new GameSessionEventProducerStub())
+                .passwordEncoder(new PasswordEncoderStub())
                 .build();
         var participant = new Participant(new ParticipantId(uuidProvider.generate()), "John");
         var actual = gameSessionCreation.create(participant, "password");
@@ -34,14 +34,14 @@ class GameSessionCreationTest {
 
     @Test
     public void should_create_a_game_session_without_password() {
-        var uuidProvider = new FakeUUIDProvider();
-        var instantProvider = new FakeInstantProvider();
+        var uuidProvider = new UUIDProviderStub();
+        var instantProvider = new InstantProviderStub();
         var gameSessionCreation = GameSessionCreation.builder()
                 .uuidProvider(uuidProvider)
                 .instantProvider(instantProvider)
-                .gameSessionInventory(new FakeGameSessionInventory())
-                .gameSessionEventProducer(new FakeGameSessionEventProducer())
-                .passwordEncoder(new FakePasswordEncoder())
+                .gameSessionInventory(new GameSessionInventoryStub())
+                .gameSessionEventProducer(new GameSessionEventProducerStub())
+                .passwordEncoder(new PasswordEncoderStub())
                 .build();
         var participant = new Participant(new ParticipantId(uuidProvider.generate()), "John");
         var actual = gameSessionCreation.create(participant, null);

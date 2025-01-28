@@ -5,7 +5,7 @@ import fr.razanakoto.dimby.boardgame.domain.session.spi.UUIDProvider;
 import java.util.UUID;
 
 
-public class FakeUUIDProvider implements UUIDProvider {
+public class UUIDProviderStub implements UUIDProvider {
 
     @Override
     public UUID generate() {

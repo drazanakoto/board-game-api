@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class FakeGameSessionInventory implements GameSessionInventory {
+public class GameSessionInventoryStub implements GameSessionInventory {
 
     private final Map<GameSessionId, GameSession> gameSessions;
 
-    public FakeGameSessionInventory() {
+    public GameSessionInventoryStub() {
         gameSessions = new HashMap<>();
     }
 

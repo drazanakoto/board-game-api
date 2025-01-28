@@ -4,7 +4,7 @@ import fr.razanakoto.dimby.boardgame.domain.session.events.GameSessionCreatedEve
 import fr.razanakoto.dimby.boardgame.domain.session.events.ParticipantGameSessionAddedEvent;
 import fr.razanakoto.dimby.boardgame.domain.session.spi.GameSessionEventProducer;
 
-public class FakeGameSessionEventProducer implements GameSessionEventProducer {
+public class GameSessionEventProducerStub implements GameSessionEventProducer {
     @Override
     public void publish(GameSessionCreatedEvent event) {
 
